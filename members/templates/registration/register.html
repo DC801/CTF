@@ -1,0 +1,27 @@
+{% extends "members/base.html" %}
+
+{% block title %}Registration{% endblock %}
+{% block head %}Registration{% endblock %}
+
+{% block content %}
+{%if not game_over%}
+	<div align="left">
+
+	    <font>
+		<p>Welcome to the Capture the Flag theTransistor </p><br/>
+
+		<p>In this land its the thrill of solving a puzzle, the bending of logic to our wills, and uninhibited freedom. </p>
+
+		<p>The rule of Capture the Flag theTransistor is to keep in mind, we can only help you as far as you are willing to help yourself. The first step is complete contracts for points. The person with the most points wins. Let us know who you are by submitting the following information.</p><br/>
+
+	<form method="post" action=".">{% csrf_token %}
+	  {{ form.as_p }}
+	  <input type="submit" value="Register" />
+	</form>
+	</div> 
+{%else%}
+	<p>Sorry Capture the Flag theTransistor has Ended</p>
+
+{%endif%}
+
+{% endblock %}

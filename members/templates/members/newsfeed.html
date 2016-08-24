@@ -1,0 +1,26 @@
+{% extends "members/base.html" %}
+
+{% block title %} 
+    theTransistor News Feed
+{% endblock %}
+{%block header%}
+	<meta http-equiv="refresh" content="60; URL=https://ctf.eggplant.online/agents/newsfeed/">
+{%endblock%}
+
+{% block head %} 
+    theTransistor News Feed
+{% endblock %}
+
+{% block content %}
+    {% if newsfeed %}
+
+    {% for news in newsfeed %}
+    <div class="panel panel-default">
+        <div class="panel-heading">{{news.publish_date}}</div>
+            <div class="panel-body">
+                {{news.info}}
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

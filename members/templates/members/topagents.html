@@ -1,0 +1,33 @@
+{% extends "members/base.html" %}
+
+{% block title %} 
+    theTransistor Top Agents
+{% endblock %}
+{% block header %}
+	<meta http-equiv="refresh" content="60; URL=https://ctf.eggplant.online/agents/topagents/">
+{% endblock %}
+
+{% block head %} 
+    theTransistor Top Agents
+{% endblock %}
+
+{% block content %}
+
+    <table class="table">
+        <thead>
+        <tr>
+           <th>Agent</th>
+           <th>Score</th>
+           <th>Completed Contracts</th>
+       </tr>
+        </thead>
+
+        <tbody>
+        {% for score in agent_scores %}
+            <tr>
+                <td>{{score.handle}}</td><td><i class="twa twa-lg tw|a-sparkles"></i>  {{score.score}}</td><td>{{score.completed}}</td>
+            </tr>
+            {% endfor %}
+        <tbody/>
+        </table>
+{% endblock %}

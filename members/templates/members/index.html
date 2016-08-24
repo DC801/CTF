@@ -1,0 +1,77 @@
+{% extends "members/base.html" %}
+
+{% block title %} 
+    {%if user.handle %}
+        Agent Profile
+    {% else %}
+        Intro
+    {% endif %}
+{% endblock %}
+
+{% block head %} 
+    {%if user.handle %}
+        Ctf Profile
+    {% else %}
+        Intro
+    {% endif %}
+
+{% endblock %}
+
+{% block content %}
+
+       {% if user.handle %}
+       
+       <script>
+           function view_contract(contract_id){
+               window.location.replace("/agents/contract/"+contract_id);
+           }
+       </script>
+   
+       <p> {{ user.handle }}</p>
+   
+       {% if deltacredit_total %}
+           <div class="well"> <i class="twa twa-lg twa-sparkles"></i>  {{deltacredit_total}}</div>
+       {% endif %}
+   
+   
+       <ul class="nav nav-tabs">
+               <li class="active"><a href="/">Completed Contracts</a></li>
+           </ul>
+       <br/>
+       {% for capture in completed_captures %}
+       <div class="panel panel-info">
+           <div class="panel-heading">{{capture.contract.title}} - {{capture.contract.category}}</div>
+           <div class="panel-body"> Sparkle Points: <i class="twa twa-lg twa-sparkles"></i> {{capture.contract.payment}} - {{capture.capture_date}}
+   
+           <button type="button" class="btn btn-danger pull-right btn-sm"  onclick="view_contract({{capture.contract.id}});">View</button></div>
+       </div>
+   
+       {% endfor %}
+   
+   
+       <p>{{message}}</p>
+       {% else %}
+   	{%if game_start > current_time %}
+
+       		<p>{{message}}</p>
+		Game has Started!
+	{%endif%}
+       	{% if not game_over %}
+		<h2>CTF ENDS AT NOON !!!!</h2>
+		<br/>
+		<h2>Welcome! to theTransistor  CTF</h2>
+
+		<p>New to CTF Check out this intro: <a href="https://trailofbits.github.io/ctf/">https://trailofbits.github.io/ctf/</a></p>
+
+		<p>theTransistor  Capture The Flag is an event set up for solving puzzles and engaging in creative exploration in a safe environment.</p>
+		<p>Our CTF exercises feature multiple categories, which are typically not related to each other. Each category has contracts of a particular skillset. For instance, a contracts may feature codebreaking, lockpicking, robot building, and packet forensics. </p>
+		<p>Once you have 200 points you can collect your badge hardware!</p>
+		<p><h2>Keep playing to win prizes on Saturday!!!!</h2></p>
+           	<a href="/agents/register">Register</a>
+          {%else%}
+               <p> Sorry The Game is Now Over </p>
+		<p>Prize hand out will be at 12:45 pm at the hackcenter! come get your stuff! College people talk to tyler.</p>
+          {%endif%}
+   
+	{% endif %}
+{% endblock %}

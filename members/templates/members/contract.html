@@ -1,0 +1,61 @@
+{% extends "members/base.html" %}
+    theTransistor CTF Top Agents
+
+{% block title %} Contract - {{contract.title}} - {{contract.category.name}{% endblock %}
+{% block head %}  
+    <br/>
+    {% if contract %}
+       Contract: {{contract.title}} - {{contract.category.name}} 
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+{% if info %}   
+        {% if info.valid%}
+            <div class="alert alert-success">{{info.message}}</div>
+        {% else %}
+        <div class="alert alert-warning">{{info.message}}</div>
+        {% endif %}
+
+    {%endif%}
+
+    {% if user.handle %}
+    {% if contract %}
+        <div class="panel panel-default">
+            <div class="panel-heading">Handler - {{contract.handler.handle}} </div>
+            <div class="panel-body">
+                <h3>Description</h3>
+                <p>{{contract.description}}</p>
+                <h3>Briefing</h3>
+                <p>{{contract.breifing}}</p>
+
+                {%if contract.file%}
+                    <h3><a href='{{url}}/static/contract_files/{{contract.file}}'>Contract Files</a></h3>
+                {%endif%}
+
+            </div>
+            <div class="panel-footer">Sparkle Points<i class="twa twa-lg twa-sparkles"></i> {{contract.payment}} <br/><br/>
+                {% if completed_capture == None %}
+                <form name="input" action="{{url}}/agents/contract/{{contract.id}}" method="post" role="form">
+                <div class="input-group">
+                      <input type="text" id='contract_capture' name='contract_capture' class="form-control">
+                     <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">Complete</button>
+                      </span>
+        
+                  </div> 
+             {% csrf_token %}
+                </form>
+             
+            {% else %}
+            <div class="alert alert-info">Contract Completed {{completed_capture.capture_date}}</div>
+
+            {% endif %}
+            </div>
+        </div>
+
+    {% endif %}
+
+  {% endif %}
+{% endblock %}

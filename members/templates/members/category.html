@@ -1,0 +1,56 @@
+{% extends "members/base.html" %}
+
+{% block title %} Contracts{% endblock %}
+{% block head %}  Contracts{% endblock %}
+
+{% block content %}
+
+    <script>
+
+        function view_contract(contract_id){
+            window.location.replace("/agents/contract/"+contract_id);
+        }
+
+
+    </script>
+
+    {% if user.handle %}
+    <p></p>
+    <p> {{ user.handle }}</p>
+
+    {% if categories  %}
+
+    <ul class="nav nav-tabs">
+        {% if selected_category == None %}
+            <li class="active"><a href="/">All</a></li>
+        {%else%}
+            <li><a href="/agents/contract/category/">All</a></li>
+        {%endif%}
+            
+            {% for category in categories %}
+                    
+                {% ifequal category selected_category %}
+                    <li class="active"><a href="/agents/contract/category/{{category.id}}">{{category.name}}</a></li>
+                {% else %}
+                    <li><a href="/agents/contract/category/{{category.id}}">{{category.name}}</a></li>
+                {% endifequal %}
+            {% endfor %}
+          </ul>
+
+        {% endif %}
+    {% endif %}
+
+
+    {% if contracts %}
+        <br/>
+        {% for contract in contracts %}
+        <div class="panel panel-default">
+            <div class="panel-heading">{{contract.title}} - {{contract.category.name}}</div>
+            <div class="panel-body">Sparkle Points: <i class="twa twa-lg twa-sparkles"></i>  {{contract.payment}} <button type="button" class="btn btn-danger pull-right btn-sm"  onclick="view_contract({{contract.id}});">View</button></div>
+        </div>
+        {% endfor %}
+
+    {% endif %}
+
+    <p>{{message}}</p>
+{% endblock %}

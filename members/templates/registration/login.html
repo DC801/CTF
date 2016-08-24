@@ -1,0 +1,23 @@
+{% extends "members/base.html" %}
+
+{% block title %}theTransistor Land Pasport Verification{% endblock %}
+{% block head %}theTransistor Land Pasport Verification{% endblock %}
+
+{% block content %}
+<div align="left"> 
+
+    <p>Login</p>
+
+    {% if message %}
+    <div class="alert alert-warning">{{ message }}</div>
+    {% endif %}
+
+  <form method="post" action="/agents/login/">
+    {% csrf_token %}
+    <p><label for="id_username">Email: </label>{{ form.email }}</p>
+    <p><label for="id_password">Password: </label>{{ form.password }}</p>
+    <input type="hidden" name="next" value="/" />
+    <input type="submit" value="Login" />
+  </form>
+</div>
+{% endblock %}
